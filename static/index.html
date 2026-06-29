@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca · Acervo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Courier+Prime:wght@400;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- TELA DE AUTENTICAÇÃO -->
+<div id="tela-auth" class="tela-auth">
+  <div class="cartao-acesso">
+    <div class="aba aba-acesso">CARTEIRINHA</div>
+    <h1>Biblioteca</h1>
+    <p class="subtitulo-auth">Entre com sua conta ou crie uma carteirinha nova.</p>
+
+    <div class="alternador-auth">
+      <button class="botao-aba ativo" data-form="entrar">Entrar</button>
+      <button class="botao-aba" data-form="criar">Criar conta</button>
+    </div>
+
+    <form id="form-login" class="form-auth">
+      <label>E-mail
+        <input type="email" name="email" required autocomplete="username">
+      </label>
+      <label>Senha
+        <input type="password" name="senha" required autocomplete="current-password">
+      </label>
+      <button type="submit" class="botao botao-primario botao-largo">Entrar</button>
+    </form>
+
+    <form id="form-registro" class="form-auth oculto">
+      <label>Nome
+        <input type="text" name="nome" required autocomplete="name">
+      </label>
+      <label>E-mail
+        <input type="email" name="email" required autocomplete="email">
+      </label>
+      <label>Senha
+        <input type="password" name="senha" required minlength="6" autocomplete="new-password">
+      </label>
+      <p class="dica-auth">Mínimo de 6 caracteres. O primeiro cadastro do sistema se torna administrador.</p>
+      <button type="submit" class="botao botao-primario botao-largo">Criar conta</button>
+    </form>
+  </div>
+</div>
+
+<!-- APLICAÇÃO -->
+<div id="app" class="oculto">
+
+  <header class="cabecalho">
+    <div class="aba">BIBLIOTECA</div>
+    <div class="cabecalho-conteudo">
+      <h1>Fichário do Acervo</h1>
+      <p class="subtitulo">Catálogo, empréstimos e devoluções</p>
+    </div>
+
+    <div class="usuario-logado">
+      <span id="texto-usuario-logado"></span>
+      <button id="botao-sair" class="botao-link">Sair</button>
+    </div>
+
+    <nav class="gaveta-nav">
+      <button class="botao-aba ativo" data-vista="catalogo">Catálogo</button>
+      <button class="botao-aba" data-vista="emprestimos">Empréstimos</button>
+      <button class="botao-aba apenas-admin oculto" data-vista="acessos">Acessos</button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- VISTA: CATÁLOGO -->
+    <section id="vista-catalogo" class="vista">
+      <div class="barra-ferramentas">
+        <h2> Mariana voceé linda, obrigado pelo teste❤️❤️❤️😘😘</h2>>
+        <input id="campo-busca" type="search" placeholder="Buscar por título, autor ou categoria…" autocomplete="off">
+        <button id="botao-novo-livro" class="botao botao-primario">+ Novo livro</button>
+      </div>
+      <div id="grade-livros" class="grade-fichas" aria-live="polite"></div>
+      <p id="catalogo-vazio" class="estado-vazio oculto">Nenhum livro encontrado com esse termo. Tente outra busca ou cadastre um título novo.</p>
+    </section>
+
+    <!-- VISTA: EMPRÉSTIMOS -->
+    <section id="vista-emprestimos" class="vista oculto">
+      <div class="barra-ferramentas">
+        <h2 class="titulo-secao">Empréstimos ativos e histórico</h2>
+      </div>
+      <div id="lista-emprestimos" class="lista-emprestimos" aria-live="polite"></div>
+      <p id="emprestimos-vazio" class="estado-vazio oculto">Nenhum empréstimo registrado ainda.</p>
+    </section>
+
+    <!-- VISTA: ACESSOS (admin) -->
+    <section id="vista-acessos" class="vista oculto">
+      <div class="barra-ferramentas">
+        <h2 class="titulo-secao">Quem entrou no site</h2>
+      </div>
+      <div id="lista-acessos" class="lista-emprestimos" aria-live="polite"></div>
+      <p id="acessos-vazio" class="estado-vazio oculto">Nenhum acesso registrado ainda.</p>
+    </section>
+
+  </main>
+
+  <!-- MODAL: NOVO LIVRO -->
+  <div id="modal-livro" class="sobreposicao oculto">
+    <form id="form-livro" class="ficha-modal">
+      <h2>Nova ficha de catálogo</h2>
+      <label>Título
+        <input type="text" name="titulo" required>
+      </label>
+      <label>Autor
+        <input type="text" name="autor" required>
+      </label>
+      <div class="campo-duplo">
+        <label>Ano
+          <input type="number" name="ano" min="0" max="2100">
+        </label>
+        <label>Categoria
+          <input type="text" name="categoria" placeholder="Romance, Conto…">
+        </label>
+      </div>
+      <label>ISBN
+        <input type="text" name="isbn" placeholder="opcional">
+      </label>
+      <label>Exemplares
+        <input type="number" name="quantidade_total" min="1" value="1" required>
+      </label>
+      <div class="acoes-modal">
+        <button type="button" id="botao-cancelar-livro" class="botao">Cancelar</button>
+        <button type="submit" class="botao botao-primario">Adicionar à estante</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- MODAL: EMPRESTAR -->
+  <div id="modal-emprestimo" class="sobreposicao oculto">
+    <form id="form-emprestimo" class="ficha-modal">
+      <h2>Registrar empréstimo</h2>
+      <p class="resumo-livro-modal" id="resumo-livro-modal"></p>
+      <p class="resumo-livro-modal" id="resumo-leitor-modal"></p>
+      <label>Prazo (dias)
+        <input type="number" name="dias" min="1" value="14" required>
+      </label>
+      <div class="acoes-modal">
+        <button type="button" id="botao-cancelar-emprestimo" class="botao">Cancelar</button>
+        <button type="submit" class="botao botao-primario">Confirmar empréstimo</button>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+<div id="aviso" class="aviso oculto" role="status"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
