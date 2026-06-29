@@ -1,3 +1,4 @@
+HEAD
 # Biblioteca — Catálogo e Empréstimos
 
 Projeto completo: back-end em **Python (Flask + SQLite)** e front-end em
@@ -87,3 +88,6 @@ conn.commit()
   chamadas `fetch`.
 - Troque o valor de `app.secret_key` em `app.py` antes de usar em produção.
 - Não é possível excluir um livro que tenha exemplares emprestados.
+=======
+# Teste-Python
+1f7023cdd3b10203250620f4f5789bb02ea9e4e9
